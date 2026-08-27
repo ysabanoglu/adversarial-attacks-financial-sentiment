@@ -1,0 +1,24 @@
+{
+  "citation": "",
+  "description": "",
+  "features": {
+    "Sentence_ID": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "Source": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "Sentence": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "Label": {
+      "dtype": "int64",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": ""
+}

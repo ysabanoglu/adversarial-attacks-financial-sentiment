@@ -19,6 +19,8 @@ attack_results_raw/
 *_complete_sentiment/
 *_standard_cols.csv
 *.arrow
+# ...but the committed evaluation set is intentional:
+!datasets/phrasebank_1020/*.arrow
 
 # Python
 __pycache__/

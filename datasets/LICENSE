@@ -15,6 +15,8 @@ Authors: Ankur Sinha, Satishwar Kedas, Rishu Kumar, Pekka Malo (2022)
 Redistributed here for reproducibility. If you use this data, cite the authors.
 
 -----------------------------------------------------------------------------
+phrasebank_full_sentences_50agree.csv <-- THE FULL SOURCE CORPUS (4,846 rows)
+phrasebank_1020/                     <-- saved HF dataset, same 1,020 rows
 phrasebank_1020_evaluation_set.csv   <-- THE SET EVERY PUBLISHED RESULT USES
 phrasebank_and_sentfin.csv           <-- an alternative merge, NOT used for results
 -----------------------------------------------------------------------------
@@ -34,7 +36,9 @@ Financial PhraseBank
 Because Financial PhraseBank is CC BY-NC-SA 3.0, these derived files are
 distributed under the SAME LICENCE:
 
-    phrasebank_1020_evaluation_set.csv is licensed CC BY-NC-SA 3.0
+    phrasebank_full_sentences_50agree.csv is licensed CC BY-NC-SA 3.0
+    phrasebank_1020_evaluation_set.csv    is licensed CC BY-NC-SA 3.0
+    phrasebank_1020/                      is licensed CC BY-NC-SA 3.0
     phrasebank_and_sentfin.csv         is licensed CC BY-NC-SA 3.0
 
 That means, if you reuse it, you must:
@@ -42,6 +46,10 @@ That means, if you reuse it, you must:
   * use it for NON-COMMERCIAL purposes only;
   * distribute any derivative of it under CC BY-NC-SA 3.0 as well.
 
-The full Financial PhraseBank is not redistributed here — only the 1,020-row
-evaluation subset. The notebook loads the complete corpus at runtime from the
-HuggingFace `financial_phrasebank` dataset (configuration `sentences_50agree`).
+The complete `sentences_50agree` corpus IS redistributed here, which the
+CC BY-NC-SA 3.0 licence permits. The original release documentation and licence
+text are included alongside it as FinancialPhraseBank-README.txt and
+FinancialPhraseBank-License.txt.
+
+For COMMERCIAL use of Financial PhraseBank the authors ask to be contacted
+directly for a separate licence — see FinancialPhraseBank-License.txt.

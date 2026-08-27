@@ -107,6 +107,28 @@ That file is committed, so you can reproduce the exact evaluation set without re
 step 1 — and, more importantly, verify that the published numbers refer to the same 1,020
 sentences.
 
+### What is in `datasets/`
+
+| File | Rows | What it is |
+|---|---:|---|
+| `phrasebank_1020_evaluation_set.csv` | 1,020 | **The evaluation set every result uses.** Balanced 340/340/340 |
+| `phrasebank_1020/` | 1,020 | The same data as a saved HuggingFace dataset — `load_from_disk("datasets/phrasebank_1020")` works directly, no rebuild |
+| `phrasebank_full_sentences_50agree.csv` | 4,846 | **The full source corpus** it was drawn from: Financial PhraseBank, `sentences_50agree`, unbalanced (604 neg / 2,879 neu / 1,363 pos) |
+| `SEntFiN-v1.1.csv` | 10,753 | SEntFiN 1.1, input to the alternative merge path |
+| `phrasebank_and_sentfin.csv` | — | The alternative merge — **not used for the published results** |
+| `FinancialPhraseBank-README.txt` · `FinancialPhraseBank-License.txt` | — | The original release documentation and licence, included for attribution |
+
+Having both the full corpus and the 1,020-row subset means the sampling step is auditable:
+you can re-run the downsample with `random_state=123` and confirm it lands on exactly the
+committed rows.
+
+To skip dataset preparation entirely, replace section 1 of the notebook with:
+
+```python
+from datasets import load_from_disk
+phrasebank_1020 = load_from_disk("datasets/phrasebank_1020")
+```
+
 ### A second dataset path exists but was not used for these results
 
 `data_merge.py` and `datasets/phrasebank_and_sentfin.csv` implement a **merge of Financial
