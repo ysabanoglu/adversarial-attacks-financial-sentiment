@@ -82,7 +82,24 @@ Read together with the table above, this reframes the ranking:
 - **UAT's near-perfect similarity is an artefact** of barely changing anything that
   matters — it appends a trigger and leaves the sentence otherwise intact.
 
-Full per-model workbooks are in [`results/`](results/).
+Full per-model workbooks are in [`results/`](results/), and the **raw per-sentence attack
+output** is in [`results/attack_results_raw/`](results/attack_results_raw/) — 28 JSON files,
+one per attack × model, 1,020 records each:
+
+```json
+"742": {
+  "success": true,
+  "result":  "<the adversarial sentence the attack produced>",
+  "metrics": { "Semantic Similarity": ..., "Fluency (ppl)": ...,
+               "Grammatical Errors": ..., "Word Modification Rate": ... }
+}
+```
+
+Keyed by `Sentence_ID`, so any row joins straight back onto the evaluation set. Every
+number in the tables above is recomputable from these files — the success rates were
+re-derived from them and match to three decimals. There are no superseded runs: the
+pipeline skips any attack × model combination whose result already exists, so each of the
+28 files is the single final run.
 
 ---
 
@@ -159,6 +176,11 @@ the modules below. Every stage writes its output to disk, so the expensive parts
  8  Quality metrics          USE, MiniLM, METEOR, fluency, grammar, modification rate
  9  Compare samples          side-by-side diff of original vs adversarial sentences
 ```
+
+Steps 1 and 2 can both be skipped: the evaluation set is committed under `datasets/`, and
+the raw attack output — the expensive part, hours per attack × model pair — is committed
+under `results/attack_results_raw/`. Starting from step 3 reproduces every published table
+in minutes.
 
 **Step 4 exists for a subtle reason.** When an attack fails it produces no adversarial
 sentence — a `None`. Left alone, those rows break re-classification in step 5 and, worse,

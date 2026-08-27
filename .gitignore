@@ -15,6 +15,8 @@ datasets_with_complete_sentiment/
 datasets_complete_sentiment/
 datasets_final/
 attack_results_raw/
+# ...but the committed final run is intentional:
+!results/attack_results_raw/
 *_with_attack_results/
 *_complete_sentiment/
 *_standard_cols.csv
