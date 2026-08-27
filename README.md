@@ -14,6 +14,13 @@ The short answer: the best attacks flip roughly **69% of predictions while chang
 a quarter of the words**, and the most accurate model in the study is also among the most
 fragile.
 
+![Conceptual model of the study](docs/conceptual-model.png)
+
+*The design in one picture: original sentences are classified by four sentiment models,
+attacked by seven algorithms, and the resulting adversarial examples are re-classified and
+then judged on two axes — did the attack work, and does the sentence it produced still read
+like English?*
+
 ---
 
 ## Headline results
@@ -81,22 +88,36 @@ Full per-model workbooks are in [`results/`](results/).
 
 ## The dataset
 
-Financial PhraseBank is heavily imbalanced (59.4% neutral, 28.1% positive, 12.5%
-negative) and, at 4,840 sentences, too large to attack exhaustively without cloud
-compute — a single attack/model pair takes hours on a laptop. So the evaluation set was
-built to be **balanced and small enough to run 28 attack/model combinations**:
+**Every result in this repository was produced on
+[`datasets/phrasebank_1020_evaluation_set.csv`](datasets/phrasebank_1020_evaluation_set.csv)**
+— 1,020 sentences drawn from the **Financial PhraseBank** alone, balanced at exactly
+340 negative / 340 neutral / 340 positive.
 
-1. Load **Financial PhraseBank** (`sentences_50agree`) and **SEntFiN 1.1**.
-2. From SEntFiN, keep only headlines with a *single* sentiment decision — multi-entity
-   headlines carry conflicting labels and would poison the ground truth.
-3. Concatenate, then drop duplicates twice: identical sentence+label pairs keep the
-   first, but sentences appearing with *different* labels are removed **entirely**,
-   because they make correct metrics impossible.
-4. Downsample to **340 sentences per class = 1,020 total**, balanced across
-   negative/neutral/positive, `random_state=123`.
-5. Drop one known-broken sentence (ID 1664).
+Two constraints shaped it. Financial PhraseBank is heavily imbalanced (59.4% neutral,
+28.1% positive, 12.5% negative), which would distort macro-averaged metrics. And at 4,840
+sentences it is far too large to attack exhaustively without cloud compute — a single
+attack/model pair takes hours on a laptop, and this study runs 28 of them. So:
 
-The merged pre-downsampling set is included as `datasets/phrasebank_and_sentfin.csv`.
+1. Load Financial PhraseBank, configuration `sentences_50agree`.
+2. Assign a stable `Sentence_ID` — every downstream join depends on it.
+3. Drop one known-broken sentence (ID 1664).
+4. Downsample to **340 per class = 1,020 total**, `random_state=123` for reproducibility.
+
+That file is committed, so you can reproduce the exact evaluation set without re-running
+step 1 — and, more importantly, verify that the published numbers refer to the same 1,020
+sentences.
+
+### A second dataset path exists but was not used for these results
+
+`data_merge.py` and `datasets/phrasebank_and_sentfin.csv` implement a **merge of Financial
+PhraseBank with SEntFiN 1.1** — keeping only SEntFiN headlines carrying a *single*
+sentiment decision (multi-entity headlines have conflicting labels), then deduplicating
+twice: identical sentence+label pairs keep the first, while sentences appearing under
+*different* labels are dropped **entirely**, since they make correct metrics impossible.
+
+It is kept here because the code supports it and it is a reasonable way to build a larger,
+more varied evaluation set. **It is not what produced the tables above.** If you re-run the
+notebook as-is you will get the PhraseBank-only 1,020.
 
 ---
 
@@ -192,14 +213,16 @@ original terms:
 
 - **Financial PhraseBank** — Malo et al. (2014), *Good debt or bad debt: Detecting
   semantic orientations in economic texts*. Released CC BY-NC-SA 3.0. Loaded at runtime
-  from HuggingFace (`financial_phrasebank`), not redistributed here.
+  from HuggingFace (`financial_phrasebank`); the 1,020-sentence subset used for the
+  experiments is redistributed here under the same licence.
 - **SEntFiN 1.1** — Sinha et al. (2022), *SEntFiN 1.0: Entity-aware sentiment analysis
   for financial news*. `datasets/SEntFiN-v1.1.csv` is redistributed here for
   reproducibility; please cite the original authors if you use it.
-- `datasets/phrasebank_and_sentfin.csv` is a derived merge of the two. Because Financial
-  PhraseBank is CC BY-NC-SA 3.0, **this file is distributed under CC BY-NC-SA 3.0 as
-  well** — attribute the original authors, non-commercial use only, and license any
-  derivative the same way. See [`datasets/LICENSE`](datasets/LICENSE).
+- `datasets/phrasebank_1020_evaluation_set.csv` (the actual evaluation set) and
+  `datasets/phrasebank_and_sentfin.csv` (the unused merge) both derive from Financial
+  PhraseBank, so **both are distributed under CC BY-NC-SA 3.0** — attribute the original
+  authors, non-commercial use only, and license any derivative the same way. See
+  [`datasets/LICENSE`](datasets/LICENSE).
 
 Model weights belong to their respective HuggingFace authors and are downloaded at
 runtime.

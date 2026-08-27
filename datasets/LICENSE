@@ -15,9 +15,12 @@ Authors: Ankur Sinha, Satishwar Kedas, Rishu Kumar, Pekka Malo (2022)
 Redistributed here for reproducibility. If you use this data, cite the authors.
 
 -----------------------------------------------------------------------------
-phrasebank_and_sentfin.csv
+phrasebank_1020_evaluation_set.csv   <-- THE SET EVERY PUBLISHED RESULT USES
+phrasebank_and_sentfin.csv           <-- an alternative merge, NOT used for results
 -----------------------------------------------------------------------------
-A DERIVED WORK combining SEntFiN 1.1 with the Financial PhraseBank.
+Both derive from the Financial PhraseBank. phrasebank_1020_evaluation_set.csv
+is a 1,020-sentence class-balanced subset of it (340 per class). 
+phrasebank_and_sentfin.csv additionally combines it with SEntFiN 1.1.
 
 Financial PhraseBank
   Source : Good debt or bad debt: Detecting semantic orientations in
@@ -28,16 +31,17 @@ Financial PhraseBank
   Licence: Creative Commons Attribution-NonCommercial-ShareAlike 3.0
            https://creativecommons.org/licenses/by-nc-sa/3.0/
 
-Because Financial PhraseBank is CC BY-NC-SA 3.0, this derived file is
+Because Financial PhraseBank is CC BY-NC-SA 3.0, these derived files are
 distributed under the SAME LICENCE:
 
-    phrasebank_and_sentfin.csv is licensed CC BY-NC-SA 3.0
+    phrasebank_1020_evaluation_set.csv is licensed CC BY-NC-SA 3.0
+    phrasebank_and_sentfin.csv         is licensed CC BY-NC-SA 3.0
 
 That means, if you reuse it, you must:
   * ATTRIBUTE the original authors (both papers above);
   * use it for NON-COMMERCIAL purposes only;
   * distribute any derivative of it under CC BY-NC-SA 3.0 as well.
 
-The Financial PhraseBank half is not redistributed in raw form anywhere else
-in this repository — the notebook loads it at runtime from the HuggingFace
-`financial_phrasebank` dataset (configuration `sentences_50agree`).
+The full Financial PhraseBank is not redistributed here — only the 1,020-row
+evaluation subset. The notebook loads the complete corpus at runtime from the
+HuggingFace `financial_phrasebank` dataset (configuration `sentences_50agree`).
