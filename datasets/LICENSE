@@ -1,0 +1,43 @@
+LICENSING FOR THE FILES IN THIS DIRECTORY
+=========================================
+
+The MIT licence in the repository root covers the CODE only. It does NOT cover
+the datasets below, which are redistributed from third-party sources and keep
+their original terms.
+
+-----------------------------------------------------------------------------
+SEntFiN-v1.1.csv
+-----------------------------------------------------------------------------
+Source : SEntFiN 1.0 — Entity-aware sentiment analysis for financial news
+Authors: Ankur Sinha, Satishwar Kedas, Rishu Kumar, Pekka Malo (2022)
+         Journal of the Association for Information Science and Technology
+
+Redistributed here for reproducibility. If you use this data, cite the authors.
+
+-----------------------------------------------------------------------------
+phrasebank_and_sentfin.csv
+-----------------------------------------------------------------------------
+A DERIVED WORK combining SEntFiN 1.1 with the Financial PhraseBank.
+
+Financial PhraseBank
+  Source : Good debt or bad debt: Detecting semantic orientations in
+           economic texts
+  Authors: Pekka Malo, Ankur Sinha, Pekka Korhonen, Jyrki Wallenius,
+           Petri Takala (2014), Journal of the Association for Information
+           Science and Technology
+  Licence: Creative Commons Attribution-NonCommercial-ShareAlike 3.0
+           https://creativecommons.org/licenses/by-nc-sa/3.0/
+
+Because Financial PhraseBank is CC BY-NC-SA 3.0, this derived file is
+distributed under the SAME LICENCE:
+
+    phrasebank_and_sentfin.csv is licensed CC BY-NC-SA 3.0
+
+That means, if you reuse it, you must:
+  * ATTRIBUTE the original authors (both papers above);
+  * use it for NON-COMMERCIAL purposes only;
+  * distribute any derivative of it under CC BY-NC-SA 3.0 as well.
+
+The Financial PhraseBank half is not redistributed in raw form anywhere else
+in this repository — the notebook loads it at runtime from the HuggingFace
+`financial_phrasebank` dataset (configuration `sentences_50agree`).
